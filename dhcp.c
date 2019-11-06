@@ -133,6 +133,9 @@ dhcp_unwrap(struct pkt *pkt, const struct ifc *ifc,
 {
 	struct dhcp_relay_hdr *dhcp = (struct dhcp_relay_hdr *)pkt->data;
 
+	if (verbose_level > 1)
+		dumphex(stderr, "before-unwrap", pkt->data, pkt->datalen);
+
 	/* Sanity check header */
 	if (pkt->datalen < sizeof *dhcp ||
 	    dhcp->msg_type != DHCP_RELAY_REPL ||
@@ -195,5 +198,9 @@ dhcp_unwrap(struct pkt *pkt, const struct ifc *ifc,
 	pkt_insert_udp_data(pkt, msg_offset, -msg_offset);
 	if (pkt->datalen > msg_len)
 		pkt_insert_udp_data(pkt, pkt->datalen, -(pkt->datalen - msg_len));
+
+	if (verbose_level > 1)
+		dumphex(stderr, "after-unwrap", pkt->data, pkt->datalen);
+
 	return 0;
 }
