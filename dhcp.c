@@ -1,4 +1,5 @@
 #include <err.h>
+#include <string.h> /* strnlen */
 
 #include "dhcp.h"
 #include "dumphex.h"
