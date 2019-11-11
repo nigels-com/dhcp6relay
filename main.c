@@ -55,6 +55,7 @@ main(int argc, char *argv[])
 			memset(this_ifc, 0, sizeof *this_ifc);
 			this_ifc->name = optarg;
 			this_ifc->side = ch == 'i' ? CLIENT : SERVER;
+			this_ifc->trust_hops = 1;
 			break;
 		case 't':
 			if (!this_ifc || this_ifc->side != CLIENT) {
